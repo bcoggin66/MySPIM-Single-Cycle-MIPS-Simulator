@@ -1,9 +1,13 @@
+/*
+ * File: project.c
+ * Author: Brayden Coggin
+ * Description: Program driver for MIPS simulator
+ */
+
 #include "spimcore.h"
 
-// Brayden Coggin and Daniel Henriquez
 
 /* ALU */
-/* 10 Points */
 void ALU(unsigned A,unsigned B,char ALUControl,unsigned *ALUresult,char *Zero)
 {
     switch(ALUControl){
@@ -44,10 +48,9 @@ void ALU(unsigned A,unsigned B,char ALUControl,unsigned *ALUresult,char *Zero)
 }
 
 /* instruction fetch */
-/* 10 Points */
 int instruction_fetch(unsigned PC,unsigned *Mem,unsigned *instruction)
 {
-    // Makes sure the PC is word aligned (mulitples of 4)
+    // Makes sure the PC is word aligned (multiples of 4)
     if((PC % 4) != 0) {
         return 1;
     }
@@ -68,7 +71,6 @@ int instruction_fetch(unsigned PC,unsigned *Mem,unsigned *instruction)
 
 
 /* instruction partition */
-/* 10 Points */
 void instruction_partition(unsigned instruction, unsigned *op, unsigned *r1,unsigned *r2, unsigned *r3, unsigned *funct, unsigned *offset, unsigned *jsec)
 {
     // first 6 bits [31-26] opcode
@@ -97,10 +99,9 @@ void instruction_partition(unsigned instruction, unsigned *op, unsigned *r1,unsi
 
 
 /* instruction decode */
-/* 15 Points */
 int instruction_decode(unsigned op,struct_controls *controls)
 {
-    // Set the vakues of all control signals to 0
+    // Set the values of all control signals to 0
     controls->RegDst   = 0;
     controls->Jump     = 0;
     controls->Branch   = 0;
@@ -168,7 +169,6 @@ int instruction_decode(unsigned op,struct_controls *controls)
 }
 
 /* Read Register */
-/* 5 Points */
 void read_register(unsigned r1,unsigned r2,unsigned *Reg,unsigned *data1,unsigned *data2)
 {
     // reads value stored in register r1
@@ -179,10 +179,9 @@ void read_register(unsigned r1,unsigned r2,unsigned *Reg,unsigned *data1,unsigne
 }
 
 /* Sign Extend */
-/* 10 Points */
 void sign_extend(unsigned offset,unsigned *extended_value)
 {
-    // check if the 16 bit value is negative (bit 15 = 1)
+    // check if the 16-bit value is negative (bit 15 = 1)
     if(offset & 0x8000){
         // Extend with 1's
         *extended_value = offset | 0xFFFF0000;
@@ -194,7 +193,6 @@ void sign_extend(unsigned offset,unsigned *extended_value)
 }
 
 /* ALU operations */
-/* 10 Points */
 int ALU_operations(unsigned data1,unsigned data2,unsigned extended_value,unsigned funct,char ALUOp,char ALUSrc,unsigned *ALUresult,char *Zero)
 {
     unsigned B = (ALUSrc) ? extended_value : data2;
@@ -268,7 +266,6 @@ int ALU_operations(unsigned data1,unsigned data2,unsigned extended_value,unsigne
 }
 
 /* Read / Write Memory */
-/* 10 Points */
 int rw_memory(unsigned ALUresult,unsigned data2,char MemWrite,char MemRead,unsigned *memdata,unsigned *Mem)
 {
     // Memory address must be word aligned
@@ -291,7 +288,6 @@ int rw_memory(unsigned ALUresult,unsigned data2,char MemWrite,char MemRead,unsig
 
 
 /* Write Register */
-/* 10 Points */
 void write_register(unsigned r2,unsigned r3,unsigned memdata,unsigned ALUresult,char RegWrite,char RegDst,char MemtoReg,unsigned *Reg)
 {
     // Only write if RegWrite = 1
@@ -314,7 +310,6 @@ void write_register(unsigned r2,unsigned r3,unsigned memdata,unsigned ALUresult,
 }
 
 /* PC update */
-/* 10 Points */
 void PC_update(unsigned jsec,unsigned extended_value,char Branch,char Jump,char Zero,unsigned *PC)
 {
     // Go to next instruction
@@ -330,4 +325,5 @@ void PC_update(unsigned jsec,unsigned extended_value,char Branch,char Jump,char 
         *PC = (*PC & 0xF0000000) | (jsec << 2);
     }
 }
+
 
