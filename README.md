@@ -1,10 +1,9 @@
-
 # MySPIM — Single-Cycle MIPS Simulator  
 CDA3103: Computer Logic & Organization
 
-Authors: **Brayden Coggin**
+**Author:** Brayden Coggin
 
-This repository contains our implementation of the **MySPIM single-cycle MIPS processor simulator**, following the University of Central Florida CDA3103 project guidelines. MySPIM simulates a simplified, single-cycle MIPS processor using the provided datapath and control logic.
+This repository contains an implementation of the **MySPIM single-cycle MIPS processor simulator**, developed for the University of Central Florida CDA3103 course. MySPIM simulates a simplified single-cycle MIPS processor using the provided datapath and control logic.
 
 ---
 
@@ -12,23 +11,22 @@ This repository contains our implementation of the **MySPIM single-cycle MIPS pr
 
 | File | Description |
 |------|-------------|
-| `project.c` | Implementation of the ALU, datapath, control unit logic, memory access, branch/jump behavior, and PC update logic. *(This is the only file we modify.)* |
-| `spimcore.c` | Provided driver — loads `.asc` files, steps through instructions, prints registers/memory, and manages the simulation loop. |
-| `spimcore.h` | Provided header with function prototypes and the `struct_controls` definition. |
-| `ProjectFAQ.pdf` | Official FAQ with clarifications about memory alignment, control signals, ALU behavior, and branching rules. |
-| `ProjectGuideline.pdf` | Full project description, diagrams, required instructions, and datapath explanation. |
+| `project.c` | Student implementation of the datapath, ALU logic, control signals, memory access, branching, and PC update logic. |
+| `spimcore.c` | Simulator driver responsible for loading `.asc` files, stepping through instructions, and handling user commands. |
+| `spimcore.h` | Header file containing function prototypes and the `struct_controls` definition. |
+| `Makefile` | Build script for compiling the simulator. |
 
 ---
 
 ## ⚙️ Compilation
 
-Use **GCC** to compile the simulator:
+The simulator is compiled using **GCC** via the provided Makefile:
 
 ```bash
-gcc -o spimcore spimcore.c project.c
+make
 ```
 
-A binary named `spimcore` will be produced upon successful compilation.
+This produces an executable named `spim`.
 
 ---
 
@@ -37,16 +35,16 @@ A binary named `spimcore` will be produced upon successful compilation.
 Run MySPIM with a `.asc` file containing MIPS machine code:
 
 ```bash
-./spimcore program.asc
+./spim program.asc
 ```
 
-Once running, MySPIM acts like a debugger. You may use the commands below.
+Once running, MySPIM behaves like an interactive debugger.
 
 ---
 
 ## 🐞 Debugger Commands
 
-MySPIM includes several commands that allow interactive debugging during execution:
+The simulator supports the following interactive commands:
 
 | Command | Description |
 |---------|-------------|
@@ -54,17 +52,17 @@ MySPIM includes several commands that allow interactive debugging during executi
 | `m` | Dump memory contents |
 | `s[n]` | Step *n* instructions (default = 1) |
 | `c` | Continue execution until program halts |
-| `h` | Check if the program has halted |
-| `d [addr1] [addr2]` | Hex dump of memory range |
+| `h` | Check halt status |
+| `d [addr1] [addr2]` | Hex dump of a memory range |
 | `i` | Print memory size |
-| `p` | Print the input `.asc` file |
-| `g` | Display all control signals for the last executed instruction |
+| `p` | Print the loaded `.asc` file |
+| `g` | Display control signals for the last executed instruction |
 | `q` | Quit the simulator |
 
-### Example usage:
+### Example usage
 ```
 s 10   # step 10 cycles
-m 4096 # dump memory around text segment
+m 4096 # dump memory near text segment
 r      # print registers
 g      # show control signals
 ```
@@ -73,7 +71,8 @@ g      # show control signals
 
 ## 🧠 Implementation Notes
 
-The project requires implementing the following functions in `project.c`:
+The following functions are implemented in `project.c`:
+
 - `ALU`
 - `instruction_fetch`
 - `instruction_partition`
@@ -85,12 +84,11 @@ The project requires implementing the following functions in `project.c`:
 - `write_register`
 - `PC_update`
 
-### Important constraints:
-- **Do not modify `spimcore.c` or `spimcore.h`.**
-- **Do not use print statements in `project.c`.**
-- All memory accesses must be **word-aligned**.
-- Memory array is indexed using `address >> 2`.
-- ALUOp = `7` means the instruction is R-type and must be decoded using the `funct` field.
+### Constraints and assumptions
+- Memory accesses are **word-aligned**
+- Memory is indexed using `address >> 2`
+- `ALUOp = 7` indicates an R-type instruction and requires decoding via the `funct` field
+- Debug output is handled by the simulator driver
 
 ---
 
@@ -111,4 +109,4 @@ The project requires implementing the following functions in `project.c`:
 
 ## 📜 License
 
-This project is for academic use in CDA3103. All provided starter files belong to the University of Central Florida and/or their original authors.
+This project was developed for academic use in CDA3103. Starter files and project specifications are provided by the University of Central Florida and/or their original authors.
