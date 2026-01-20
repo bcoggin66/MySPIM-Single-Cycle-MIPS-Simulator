@@ -1,3 +1,9 @@
+/*
+ * File: spimcore.c
+ * Author: Brayden Coggin
+ * Description: Core MIPS CPU logic
+ */
+
 #include "spimcore.h"
 
 #define MEMSIZE (65536 >> 2)
@@ -408,3 +414,4 @@ int main(int argc, char **argv)
 	fclose(FP);
 	return 0;
 }
+
