@@ -2,7 +2,7 @@
 # MySPIM — Single-Cycle MIPS Simulator  
 CDA3103: Computer Logic & Organization
 
-Authors: **Brayden Coggin & Daniel Henriquez**
+Authors: **Brayden Coggin**
 
 This repository contains our implementation of the **MySPIM single-cycle MIPS processor simulator**, following the University of Central Florida CDA3103 project guidelines. MySPIM simulates a simplified, single-cycle MIPS processor using the provided datapath and control logic.
 
