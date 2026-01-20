@@ -1,0 +1,12 @@
+# Compiled binary
+spimcore
+
+# Object files
+*.o
+*.out
+
+# macOS system files
+.DS_Store
+
+# Backup/temporary files
+*~
