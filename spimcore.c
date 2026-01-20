@@ -169,7 +169,8 @@ void DumpReg(void)
 // Dump Memory Content where the addresses are in decimal format
 void DumpMem(int from, int to)
 {
-	int i, mt, ma;
+	int i, ma;
+        unsigned mt;
 
 	(to < from) && (to = from);
 	if (from == to)
@@ -199,7 +200,8 @@ void DumpMem(int from, int to)
 // Dump Memory Content in Hex format
 void DumpMemHex(int from, int to)
 {
-	int i, mt, ma;
+	int i, ma;
+        unsigned mt;
 
 	(to < from) && (to = from);
 	if (from == to)
